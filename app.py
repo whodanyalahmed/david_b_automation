@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from config import *
 
 # make chrome headless function
+
+
 def chrome(headless=False):
     # add fake user agent
     chrome_options = Options()
@@ -36,12 +38,15 @@ driver = chrome()
 
 driver.maximize_window()
 
-try:
-    driver.get('https://prenotami.esteri.it/Services')
-    print("info: page loaded")
-except Exception as e:
-    print(e)
-    print("error: page not loaded")         # print error message
+
+def home():
+
+    try:
+        driver.get('https://prenotami.esteri.it/Services')
+        print("info: page loaded")
+    except Exception as e:
+        print(e)
+        print("error: page not loaded")         # print error message
 
 
 def login():
@@ -58,11 +63,19 @@ def login():
         print(e)
         print("error: password not entered")
     try:
-        driver.find_element_by_xpath('button[@data-sitekey="6LdSmG4cAAAAAOarRxGIhehvv4sPgVeF-vRi-Jqb"]').click()
+        # click button that contains text "Avanti"
+        driver.find_element_by_xpath('//*[contains(text(), "Avanti")]').click()
         print("info: login button clicked")
     except Exception as e:
         print(e)
         print("error: login button not clicked")
 
 
-login()
+def main():
+
+    home()
+    login()
+    home()
+
+
+main()
